@@ -1,0 +1,4 @@
+---
+- include: ansible-init.yml
+- include: docker-install.yml
+- include: docker-vpn-install.yml

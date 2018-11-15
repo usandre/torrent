@@ -1,0 +1,6 @@
+---
+- name: AWS VPN
+  hosts: VPN
+  become: true
+  roles:
+  - vpn  
