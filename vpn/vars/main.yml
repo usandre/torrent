@@ -1,2 +1,4 @@
 ---
 # vars file for vpn
+USER: "VPN"
+PASSWORD: "PASSORD"

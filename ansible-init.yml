@@ -1,0 +1,15 @@
+---
+# Run as
+# ansible-playbook -i hostname, -u remote_user -k -b -K take_control.yml
+
+- hosts: all
+  gather_facts: no
+  vars:
+    user_name: ansible
+  tasks:
+
+  - name: install ansible dependencies
+    raw: 'apt-get update && apt-get install -y sudo python'
+    args:
+      executable: /bin/bash
+    changed_when: false

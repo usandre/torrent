@@ -1,4 +1,29 @@
 ---
+- name: Add af_key mod
+  tags: docker-run
+  modprobe:
+    name: af_key
+    state: present
+
 - name: docker pull hwdsl2/ipsec-vpn-server
+  tags: docker-run
   docker_image:
     name: hwdsl2/ipsec-vpn-server
+
+- name: Build and run application
+  tags: docker-run
+  become: true
+  docker_container:
+    name: ipsec-vpn-server
+    image: hwdsl2/ipsec-vpn-server
+    state: started
+    restart: yes
+    ports:
+    - "500:500/udp"
+    - "4500:4500/udp"
+    env:
+      VPN_USER: vpn
+      VPN_PASSWORD: torrent
+      VPN_IPSEC_PSK: sec
+    volumes:
+    - "/lib/modules:/lib/modules:ro"

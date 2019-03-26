@@ -1,6 +1,0 @@
----
-- name: install ansible dependencies
-  raw: 'apt-get update && apt-get install -y sudo python'
-  args:
-    executable: /bin/bash
-  changed_when: false
