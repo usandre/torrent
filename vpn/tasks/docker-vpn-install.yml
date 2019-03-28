@@ -10,6 +10,18 @@
   docker_image:
     name: hwdsl2/ipsec-vpn-server
 
+- name: Copy
+  tags: copy
+  copy:
+    src: files/docker-build.sh
+    dest: "/home/ubuntu/docker-build.sh"
+
+- name: Copy
+  tags: copy
+  copy:
+    src: files/vpn-env.ini
+    dest: "/home/ubuntu/vpn-env.ini"
+
 - name: Build and run application
   tags: docker-run
   become: true
@@ -18,12 +30,13 @@
     image: hwdsl2/ipsec-vpn-server
     state: started
     restart: yes
+    privileged: true
     ports:
     - "500:500/udp"
     - "4500:4500/udp"
     env:
-      VPN_USER: vpn
-      VPN_PASSWORD: torrent
-      VPN_IPSEC_PSK: sec
+      VPN_USER: 'vpnuser'
+      VPN_PASSWORD: 'vpnpassword'
+      VPN_IPSEC_PSK: 'ipsec'
     volumes:
     - "/lib/modules:/lib/modules:ro"
